@@ -1,0 +1,610 @@
+// src/components/icons/pdf-icons.tsx
+// ============================================================
+// Icons — PDFBerri
+// Hand-rolled SVG icons for PDF tools, AI tools and UI.
+// Thin-stroke style, all use `currentColor` so they follow
+// your theme tokens (e.g. text-primary).
+// ============================================================
+
+import type { ReactNode } from "react";
+
+type IconProps = {
+  className?: string;
+};
+
+function Svg({ className, children }: IconProps & { children: ReactNode }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  );
+}
+
+// Shared document outline with folded corner
+function Doc() {
+  return (
+    <>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+      <path d="M14 3v5h5" />
+    </>
+  );
+}
+
+// ============================================================
+// ESSENTIAL PDF TOOLS
+// ============================================================
+
+export function MergeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="3" width="11" height="11" rx="2.5" />
+      <rect x="10" y="10" width="11" height="11" rx="2.5" />
+    </Svg>
+  );
+}
+
+export function SplitIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="6" cy="6" r="3" />
+      <circle cx="6" cy="18" r="3" />
+      <path d="M20 4 8.1 15.9" />
+      <path d="M14.5 14.5 20 20" />
+      <path d="M8.1 8.1 12 12" />
+    </Svg>
+  );
+}
+
+export function CompressIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M12 3v6m0 0-3-3m3 3 3-3" />
+      <path d="M12 21v-6m0 0-3 3m3-3 3 3" />
+      <path d="M4 12h16" />
+    </Svg>
+  );
+}
+
+export function WordIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <path d="M8 12.5 9.6 17l2.4-3.5 2.4 3.5 1.6-4.5" />
+    </Svg>
+  );
+}
+
+export function ExcelIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <path d="m9 12.5 6 5M15 12.5l-6 5" />
+    </Svg>
+  );
+}
+
+export function PowerpointIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <path d="M9.5 17.5v-5h3a1.8 1.8 0 0 1 0 3.6H9.5" />
+    </Svg>
+  );
+}
+
+export function PdfFileIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <path d="M9 13h6M9 17h4" />
+    </Svg>
+  );
+}
+
+export function ImageIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="4" width="18" height="16" rx="3" />
+      <circle cx="9" cy="10" r="1.6" />
+      <path d="m21 16-4.5-4.5L7 20" />
+    </Svg>
+  );
+}
+
+export function HtmlIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m8 8-4 4 4 4" />
+      <path d="m16 8 4 4-4 4" />
+      <path d="m14 5-4 14" />
+    </Svg>
+  );
+}
+
+// ============================================================
+// EDITING
+// ============================================================
+
+export function EditIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z" />
+    </Svg>
+  );
+}
+
+export function RotateIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M20 11a8 8 0 1 0-2.3 5.7" />
+      <path d="M20 4v7h-7" />
+    </Svg>
+  );
+}
+
+export function PageNumbersIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M5 9h14M5 15h14" />
+      <path d="M10 4 8 20M16 4l-2 16" />
+    </Svg>
+  );
+}
+
+export function WatermarkIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M12 3s6 6.2 6 10.5a6 6 0 0 1-12 0C6 9.2 12 3 12 3Z" />
+    </Svg>
+  );
+}
+
+export function AnnotateIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4V5Z" />
+      <path d="M8.5 8.5h7M8.5 12h4" />
+    </Svg>
+  );
+}
+
+export function SignIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 15c1.5-4 3-6 4.5-6s.5 5 2.5 5 2-3 3.5-3 1.5 2 3 2" />
+      <path d="M3 20h18" />
+    </Svg>
+  );
+}
+
+// ============================================================
+// SECURITY
+// ============================================================
+
+export function ProtectIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5l-8-3Z" />
+      <path d="m9 12 2 2 4-4" />
+    </Svg>
+  );
+}
+
+export function LockIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="5" y="11" width="14" height="10" rx="2.5" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+      <path d="M12 15.5v2" />
+    </Svg>
+  );
+}
+
+export function UnlockIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="5" y="11" width="14" height="10" rx="2.5" />
+      <path d="M8 11V7a4 4 0 0 1 7.5-2" />
+      <path d="M12 15.5v2" />
+    </Svg>
+  );
+}
+
+export function RedactIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <rect x="8" y="12" width="8" height="3" rx="0.5" fill="currentColor" stroke="none" />
+      <path d="M9 18h4" />
+    </Svg>
+  );
+}
+
+// ============================================================
+// ORGANIZE / OCR
+// ============================================================
+
+export function OrganizeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+    </Svg>
+  );
+}
+
+export function OcrIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 8V6a2 2 0 0 1 2-2h2" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+      <path d="M20 16v2a2 2 0 0 1-2 2h-2" />
+      <path d="M8 20H6a2 2 0 0 1-2-2v-2" />
+      <path d="M8 10h8M8 14h5" />
+    </Svg>
+  );
+}
+
+// ============================================================
+// AI TOOLS
+// ============================================================
+
+export function ChatIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z" />
+      <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" />
+    </Svg>
+  );
+}
+
+export function SummarizeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 6h16M4 10h16M4 14h10M4 18h6" />
+    </Svg>
+  );
+}
+
+export function TranslateIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m5 8 6 6" />
+      <path d="m4 14 6-6 2-3" />
+      <path d="M2 5h12" />
+      <path d="M7 2h1" />
+      <path d="m22 22-5-10-5 10" />
+      <path d="M14 18h6" />
+    </Svg>
+  );
+}
+
+export function NotesIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" />
+      <path d="M9.5 8h5M9.5 12h5M9.5 16h3" />
+    </Svg>
+  );
+}
+
+export function QuizIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="M9.5 9.5a2.6 2.6 0 0 1 5 1c0 1.7-2.5 2-2.5 3.5" />
+      <path d="M12 17.5h.01" />
+    </Svg>
+  );
+}
+
+export function FlashcardIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="7" width="15" height="12" rx="2" />
+      <path d="M6 7V6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1" />
+    </Svg>
+  );
+}
+
+export function DataExtractorIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <ellipse cx="12" cy="5" rx="8" ry="3" />
+      <path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
+      <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+    </Svg>
+  );
+}
+
+export function SparklesIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m11 3 1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9L11 3Z" />
+      <path d="M19 3v4M17 5h4" />
+    </Svg>
+  );
+}
+
+// ============================================================
+// UI HELPERS
+// ============================================================
+
+export function UploadIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M12 16V4m0 0-4 4m4-4 4 4" />
+      <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+    </Svg>
+  );
+}
+
+export function DownloadIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M12 4v12m0 0-4-4m4 4 4-4" />
+      <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+    </Svg>
+  );
+}
+
+export function ArrowRightIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </Svg>
+  );
+}
+
+export function ChevronDownIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m6 9 6 6 6-6" />
+    </Svg>
+  );
+}
+
+export function CheckIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m5 12.5 4.5 4.5L19 7.5" />
+    </Svg>
+  );
+}
+
+export function SearchIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m20 20-4.5-4.5" />
+    </Svg>
+  );
+}
+
+
+// ============================================================
+// PDFBerri — Split PDF icon additions
+// PASTE these into src/components/icons/pdf-icons.tsx
+// (below the "UI HELPERS" section, above "BATCH EXPORT").
+// They use the same Svg wrapper, 24x24 viewBox, 1.75 stroke and
+// currentColor as the rest of the file. Skip any you already added
+// while building Merge PDF (check for duplicate export names).
+//
+// Already in your file and reused by Split PDF:
+//   SplitIcon, PdfFileIcon, UploadIcon, DownloadIcon, CheckIcon,
+//   ChevronDownIcon, ArrowRightIcon, OrganizeIcon, ProtectIcon,
+//   MergeIcon, CompressIcon, RotateIcon
+// ============================================================
+
+export function TrashIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 7h16" />
+      <path d="M9 7V4h6v3" />
+      <path d="m6 7 1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12" />
+      <path d="M10 11v6M14 11v6" />
+    </Svg>
+  );
+}
+
+export function RefreshIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M20 11a8 8 0 0 0-14.5-3.5L4 9" />
+      <path d="M4 4v5h5" />
+      <path d="M4 13a8 8 0 0 0 14.5 3.5L20 15" />
+      <path d="M20 20v-5h-5" />
+    </Svg>
+  );
+}
+
+export function ZipIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <path d="M11 8h2M11 11h2" />
+      <path d="M10.5 14h3v3.5a1.5 1.5 0 0 1-3 0V14Z" />
+    </Svg>
+  );
+}
+
+export function CheckCircleIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="m8 12.5 3 3 5-6" />
+    </Svg>
+  );
+}
+
+export function AlertCircleIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="M12 7.5v5" />
+      <path d="M12 16.5h.01" />
+    </Svg>
+  );
+}
+
+export function LoaderIcon({ className }: IconProps) {
+  // Add `animate-spin motion-reduce:animate-none` via className
+  return (
+    <Svg className={className}>
+      <path d="M12 3a9 9 0 1 0 9 9" />
+    </Svg>
+  );
+}
+
+export function PlusIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M12 5v14M5 12h14" />
+    </Svg>
+  );
+}
+
+export function XIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M6 6l12 12M18 6 6 18" />
+    </Svg>
+  );
+}
+
+export function InfoIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="M12 11v5.5" />
+      <path d="M12 7.5h.01" />
+    </Svg>
+  );
+}
+
+export function ChevronUpIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m6 15 6-6 6 6" />
+    </Svg>
+  );
+}
+
+// Split method: "Extract selected pages"
+export function PageSelectIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <path d="m9 14.5 2 2 4-4" />
+    </Svg>
+  );
+}
+
+// Split method: "Split by page ranges"
+export function PageRangeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M9 6h11M9 12h11M9 18h11" />
+      <path d="M4 6h.01M4 12h.01M4 18h.01" />
+    </Svg>
+  );
+}
+
+// Split method: "Extract every page"
+export function MultiplePagesIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M8 7V5a2 2 0 0 1 2-2h6l4 4v8a2 2 0 0 1-2 2h-2" />
+      <path d="M16 3v4h4" />
+      <rect x="4" y="8" width="11" height="13" rx="2" />
+    </Svg>
+  );
+}
+
+// Feature: precise page selection
+export function TargetIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1" />
+    </Svg>
+  );
+}
+
+// Feature: flexible splitting
+export function LayersIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m12 3 9 5-9 5-9-5 9-5Z" />
+      <path d="m3 13 9 5 9-5" />
+    </Svg>
+  );
+}
+
+// Feature: easy / instant downloads
+export function BoltIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" />
+    </Svg>
+  );
+}
+
+// ------------------------------------------------------------
+// Also add these two lines to PDF_TOOL_ICONS (the "BATCH EXPORT" map):
+//   "delete-pdf-pages": TrashIcon,
+//   "rearrange-pdf-pages": OrganizeIcon,
+// ------------------------------------------------------------
+
+
+// ============================================================
+// BATCH EXPORT (for programmatic use, keyed by tool slug)
+// ============================================================
+
+export const PDF_TOOL_ICONS = {
+  "merge-pdf": MergeIcon,
+  "split-pdf": SplitIcon,
+  "compress-pdf": CompressIcon,
+  "pdf-to-word": WordIcon,
+  "word-to-pdf": WordIcon,
+  "pdf-to-excel": ExcelIcon,
+  "excel-to-pdf": ExcelIcon,
+  "pdf-to-powerpoint": PowerpointIcon,
+  "powerpoint-to-pdf": PowerpointIcon,
+  "pdf-to-jpg": ImageIcon,
+  "jpg-to-pdf": ImageIcon,
+  "html-to-pdf": HtmlIcon,
+  "edit-pdf": EditIcon,
+  "rotate-pdf": RotateIcon,
+  "add-page-numbers": PageNumbersIcon,
+  "add-watermark": WatermarkIcon,
+  "annotate-pdf": AnnotateIcon,
+  "sign-pdf": SignIcon,
+  "protect-pdf": ProtectIcon,
+  "unlock-pdf": UnlockIcon,
+  "redact-pdf": RedactIcon,
+  "organize-pdf": OrganizeIcon,
+  "ocr-pdf": OcrIcon,
+  "chat-with-pdf": ChatIcon,
+  "summarize-pdf": SummarizeIcon,
+  "translate-pdf": TranslateIcon,
+  "notes-generator": NotesIcon,
+  "quiz-generator": QuizIcon,
+  "flashcard-generator": FlashcardIcon,
+  "data-extractor": DataExtractorIcon,
+} as const;
+
+export type PdfToolIconKey = keyof typeof PDF_TOOL_ICONS;
