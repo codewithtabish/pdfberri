@@ -47,6 +47,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: "Excel to PDF", href: "/tools/excel-to-pdf" },
       { label: "PDF to PowerPoint", href: "/tools/pdf-to-powerpoint" },
       { label: "PowerPoint to PDF", href: "/tools/powerpoint-to-pdf" },
+      { label: "HTML to PDF", href: "/tools/html-to-pdf" },
     ],
   },
   {
@@ -64,8 +65,6 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Organize PDF",
     href: "/tools",
     links: [
-      { label: "Merge PDF", href: "/tools/merge-pdf" },
-      { label: "Split PDF", href: "/tools/split-pdf" },
       { label: "Extract Pages", href: "/tools/extract-pages" },
       { label: "Delete Pages", href: "/tools/delete-pages" },
       { label: "Rearrange Pages", href: "/tools/rearrange-pages" },
@@ -80,7 +79,6 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: "OCR PDF", href: "/tools/ocr-pdf" },
       { label: "Extract Text", href: "/tools/extract-text" },
       { label: "Extract Images", href: "/tools/extract-images" },
-      { label: "HTML to PDF", href: "/tools/html-to-pdf" },
     ],
   },
 ];
