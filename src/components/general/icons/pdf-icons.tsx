@@ -563,6 +563,10 @@ export function BoltIcon({ className }: IconProps) {
   );
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/protect-pdf
 // ============================================================
 // PDFBerri — Rotate PDF icon additions
 // ============================================================
@@ -576,6 +580,73 @@ export function RotateCwIcon({ className }: IconProps) {
   );
 }
 
+<<<<<<< HEAD
+=======
+// ============================================================
+// PDFBerri — Protect PDF icon additions
+// ============================================================
+
+export function EyeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+      <circle cx="12" cy="12" r="3" />
+    </Svg>
+  );
+}
+
+export function EyeOffIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M3 3l18 18" />
+      <path d="M10.6 5.1A10.9 10.9 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.2" />
+      <path d="M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7c1.6 0 3-.4 4.3-1" />
+      <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+    </Svg>
+  );
+}
+
+export function ChevronRightIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m9 6 6 6-6 6" />
+    </Svg>
+  );
+}
+
+export function HomeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M3 11 12 3l9 8" />
+      <path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10" />
+    </Svg>
+  );
+}
+
+export function KeyIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="7.5" cy="15.5" r="4.5" />
+      <path d="m10.7 12.3 9.8-9.8" />
+      <path d="m16 7 3 3" />
+    </Svg>
+  );
+}
+
+export function SlidersIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 6h9M17 6h3" />
+      <circle cx="15" cy="6" r="2" />
+      <path d="M4 12h3M11 12h9" />
+      <circle cx="9" cy="12" r="2" />
+      <path d="M4 18h11M19 18h1" />
+      <circle cx="17" cy="18" r="2" />
+    </Svg>
+  );
+}
+
+>>>>>>> feature/protect-pdf
 export function RotateCcwIcon({ className }: IconProps) {
   return (
     <Svg className={className}>
@@ -590,8 +661,14 @@ export function RotateCcwIcon({ className }: IconProps) {
 //   "rearrange-pdf-pages": OrganizeIcon,
 // ------------------------------------------------------------
 
-
 // ============================================================
+// PDFBerri — Protect PDF icon additions
+// ============================================================
+
+
+
+
+
 // BATCH EXPORT (for programmatic use, keyed by tool slug)
 // ============================================================
 

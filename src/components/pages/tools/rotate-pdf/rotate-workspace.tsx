@@ -50,7 +50,11 @@ export function RotateWorkspace() {
               e.target.value = "";
             }}
           />
+<<<<<<< HEAD
           <p className="text-xs text-muted-foreground">Accepted format:- PDF</p>
+=======
+          <p className="text-xs text-muted-foreground">Accepted format: PDF</p>
+>>>>>>> feature/protect-pdf
         </div>
       )}
 

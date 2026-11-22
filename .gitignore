@@ -10,6 +10,10 @@
 !.yarn/releases
 !.yarn/versions
 
+
+/public/vendor/qpdf/qpdf.js
+/public/vendor/qpdf/qpdf.wasm
+
 # testing
 /coverage
 
