@@ -1,7 +1,7 @@
 "use client";
 
 import type { PDFDocumentProxy } from "pdfjs-dist";
-import type { PageState } from "./rotate-types";
+import { PageState } from "./rotate-types";
 import { RotatePageThumbnail } from "./rotate-page-thumbnail";
 
 interface RotatePageGridProps {

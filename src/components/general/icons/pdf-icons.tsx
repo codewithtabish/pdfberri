@@ -563,6 +563,27 @@ export function BoltIcon({ className }: IconProps) {
   );
 }
 
+// ============================================================
+// PDFBerri — Rotate PDF icon additions
+// ============================================================
+
+export function RotateCwIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.8.9 6.5 2.5L21 8" />
+      <path d="M21 3v5h-5" />
+    </Svg>
+  );
+}
+
+export function RotateCcwIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M3 12a9 9 0 1 0 9-9c-2.5 0-4.8.9-6.5 2.5L3 8" />
+      <path d="M3 3v5h5" />
+    </Svg>
+  );
+}
 // ------------------------------------------------------------
 // Also add these two lines to PDF_TOOL_ICONS (the "BATCH EXPORT" map):
 //   "delete-pdf-pages": TrashIcon,
