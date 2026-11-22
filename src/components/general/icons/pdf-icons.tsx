@@ -660,6 +660,11 @@ export function ServerIcon({ className }: IconProps) {
   );
 }
 
+// Add these to src/components/general/icons/pdf-icons.tsx if missing
+
+
+
+
 export function BrowserIcon({ className }: IconProps) {
   return (
     <Svg className={className}>
