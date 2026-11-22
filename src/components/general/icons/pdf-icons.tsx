@@ -650,6 +650,25 @@ export function RotateCcwIcon({ className }: IconProps) {
   );
 }
 
+export function ServerIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="4" width="18" height="7" rx="2" />
+      <rect x="3" y="13" width="18" height="7" rx="2" />
+      <path d="M7 7.5h.01M7 16.5h.01" />
+    </Svg>
+  );
+}
+
+export function BrowserIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="4" width="18" height="16" rx="2.5" />
+      <path d="M3 9h18" />
+      <path d="M6.5 6.5h.01M9.5 6.5h.01" />
+    </Svg>
+  );
+}
 // ============================================================
 // PDFBerri — PDF to Word icon additions
 // ============================================================
