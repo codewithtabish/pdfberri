@@ -563,10 +563,7 @@ export function BoltIcon({ className }: IconProps) {
   );
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> feature/protect-pdf
 // ============================================================
 // PDFBerri — Rotate PDF icon additions
 // ============================================================
@@ -580,8 +577,6 @@ export function RotateCwIcon({ className }: IconProps) {
   );
 }
 
-<<<<<<< HEAD
-=======
 // ============================================================
 // PDFBerri — Protect PDF icon additions
 // ============================================================
@@ -646,7 +641,6 @@ export function SlidersIcon({ className }: IconProps) {
   );
 }
 
->>>>>>> feature/protect-pdf
 export function RotateCcwIcon({ className }: IconProps) {
   return (
     <Svg className={className}>
