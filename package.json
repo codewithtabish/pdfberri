@@ -6,11 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "node scripts/copy-qpdf-assets.mjs",
+    "predev": "node scripts/copy-qpdf-assets.mjs",
+    "prebuild": "node scripts/copy-qpdf-assets.mjs"
   },
   "dependencies": {
+    "@neslinesli93/qpdf-wasm": "0.3.0",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",
+    "framer-motion": "^14.14.0",
     "jszip": "^3.10.2",
     "lucide-react": "^1.77.0",
     "next": "16.4.6",
