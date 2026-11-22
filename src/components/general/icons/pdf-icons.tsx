@@ -649,6 +649,97 @@ export function RotateCcwIcon({ className }: IconProps) {
     </Svg>
   );
 }
+
+// ============================================================
+// PDFBerri — PDF to Word icon additions
+// ============================================================
+
+export function SettingsIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 6h9M17 6h3" />
+      <circle cx="15" cy="6" r="2" />
+      <path d="M4 12h3M11 12h9" />
+      <circle cx="9" cy="12" r="2" />
+      <path d="M4 18h11M19 18h1" />
+      <circle cx="17" cy="18" r="2" />
+    </Svg>
+  );
+}
+
+
+export function FolderOpenIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" />
+    </Svg>
+  );
+}
+
+export function CircleIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="12" cy="12" r="9" />
+    </Svg>
+  );
+}
+
+export function BriefcaseIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="7" width="18" height="13" rx="2.5" />
+      <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+      <path d="M3 13h18" />
+    </Svg>
+  );
+}
+
+export function GraduationCapIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m12 4 10 5-10 5L2 9l10-5Z" />
+      <path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5" />
+      <path d="M22 9v5" />
+    </Svg>
+  );
+}
+
+export function ContractIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <path d="M8.5 12h7M8.5 15h4" />
+      <path d="m13 18.5 1.2 1 2.3-2.5" />
+    </Svg>
+  );
+}
+
+export function ReceiptIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z" />
+      <path d="M9 8h6M9 12h6" />
+    </Svg>
+  );
+}
+
+export function ChartBarIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M5 20v-7M11 20V5M17 20v-10" />
+      <path d="M3 20h18" />
+    </Svg>
+  );
+}
+
+export function TextFileIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <Doc />
+      <path d="M9 12h6M9 15h6M9 18h3" />
+    </Svg>
+  );
+}
 // ------------------------------------------------------------
 // Also add these two lines to PDF_TOOL_ICONS (the "BATCH EXPORT" map):
 //   "delete-pdf-pages": TrashIcon,
