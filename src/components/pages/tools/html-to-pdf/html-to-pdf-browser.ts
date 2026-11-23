@@ -1,7 +1,6 @@
 /**
  * PDFBerri HTML → PDF — Isolated Chromium Browser Manager
- * Uses Playwright for high-fidelity rendering.
- * Each conversion gets an isolated browser context.
+ * Uses Playwright + @sparticuz/chromium for Vercel compatibility.
  */
 
 import type { Browser, BrowserContext, Page } from "playwright-core";
@@ -13,8 +12,7 @@ let launching: Promise<Browser> | null = null;
 
 /**
  * Lazily launch a shared Chromium instance.
- * In serverless / constrained environments prefer launching per-job
- * or using a managed browser service.
+ * Automatically uses @sparticuz/chromium on Vercel.
  */
 export async function getBrowser(): Promise<Browser> {
   if (sharedBrowser && sharedBrowser.isConnected()) {
@@ -26,15 +24,41 @@ export async function getBrowser(): Promise<Browser> {
   }
 
   launching = (async () => {
-    // Dynamic import so the package is optional until needed
     const { chromium } = await import("playwright-core");
 
-    const browser = await chromium.launch({
-      headless: HTML_TO_PDF_CONFIG.browser.headless,
+    const isServerless =
+      !!process.env.VERCEL ||
+      !!process.env.AWS_LAMBDA_FUNCTION_VERSION ||
+      process.env.NODE_ENV === "production";
+
+    let launchOptions: any = {
+      headless: true,
       args: [...HTML_TO_PDF_CONFIG.browser.args],
-      executablePath: HTML_TO_PDF_CONFIG.browser.executablePath,
       timeout: 30_000,
-    });
+    };
+
+    if (isServerless) {
+      // Production / Vercel — use @sparticuz/chromium
+      const chromiumPkg = await import("@sparticuz/chromium");
+      const chromium = chromiumPkg.default || chromiumPkg;
+
+      launchOptions = {
+        ...launchOptions,
+        args: [
+          ...(chromium.args || []),
+          ...HTML_TO_PDF_CONFIG.browser.args,
+          "--disable-web-security",
+          "--font-render-hinting=none",
+        ],
+        executablePath: await chromium.executablePath(),
+        headless: true, // force true (don't rely on chromium.headless)
+      };
+    } else if (HTML_TO_PDF_CONFIG.browser.executablePath) {
+      // Local development with custom path
+      launchOptions.executablePath = HTML_TO_PDF_CONFIG.browser.executablePath;
+    }
+
+    const browser = await chromium.launch(launchOptions);
 
     sharedBrowser = browser;
     launching = null;
@@ -58,12 +82,10 @@ export async function createIsolatedContext(
     bypassCSP: false,
     ignoreHTTPSErrors: false,
     viewport: { width: 1280, height: 720 },
-    // Block dangerous permissions
     permissions: [],
-    // No geolocation, camera, etc.
   });
 
-  // Extra hardening: intercept requests and block dangerous destinations
+  // Block dangerous requests
   await context.route("**/*", async (route) => {
     const request = route.request();
     const url = request.url();
@@ -71,12 +93,10 @@ export async function createIsolatedContext(
     try {
       const parsed = new URL(url);
 
-      // Block non-http(s)
       if (!["http:", "https:", "data:", "blob:"].includes(parsed.protocol)) {
         return route.abort("blockedbyclient");
       }
 
-      // Block local / private patterns at request time
       const host = parsed.hostname.toLowerCase();
       if (
         host === "localhost" ||
@@ -91,7 +111,6 @@ export async function createIsolatedContext(
         return route.abort("blockedbyclient");
       }
 
-      // Allow data: and blob: for embedded resources
       if (parsed.protocol === "data:" || parsed.protocol === "blob:") {
         return route.continue();
       }
@@ -107,17 +126,11 @@ export async function createIsolatedContext(
 
 export async function createPage(context: BrowserContext): Promise<Page> {
   const page = await context.newPage();
-
-  // Set reasonable timeouts
   page.setDefaultTimeout(LIMITS.navigationTimeoutMs);
   page.setDefaultNavigationTimeout(LIMITS.navigationTimeoutMs);
-
   return page;
 }
 
-/**
- * Close everything cleanly.
- */
 export async function closePageAndContext(page?: Page, context?: BrowserContext) {
   try {
     if (page && !page.isClosed()) await page.close();
@@ -131,9 +144,6 @@ export async function closePageAndContext(page?: Page, context?: BrowserContext)
   }
 }
 
-/**
- * Full shutdown — use on process exit or worker recycle.
- */
 export async function shutdownBrowser() {
   if (sharedBrowser) {
     try {
