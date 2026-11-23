@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 const TITLE = "Merge PDF Files Online Free | PDFBerri";
 const DESCRIPTION =
-  "Merge multiple PDF files into one document. Arrange your PDFs, combine pages and files, and download the result directly from your browser with PDFBerri.";
+  "Merge multiple PDF files into one document. Arrange your PDFs, combine pages and files - data, and download the result directly from your browser with PDFBerri.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
