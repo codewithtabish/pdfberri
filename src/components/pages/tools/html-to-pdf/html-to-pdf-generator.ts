@@ -61,9 +61,7 @@ export async function waitForResources(page: Page, timeoutMs = 15_000): Promise<
 
     // Explicitly wait for fonts
     await page.evaluate(async () => {
-      // @ts-expect-error document.fonts is standard
       if (document.fonts && document.fonts.ready) {
-        // @ts-expect-error
         await document.fonts.ready;
       }
     }).catch(() => {});

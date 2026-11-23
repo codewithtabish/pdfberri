@@ -5,7 +5,7 @@
  * Script execution is controlled at the browser level (disabled by default).
  */
 
-import type { PreparedHtml, PdfSettings } from "./html-to-pdf-types";
+import type { PreparedHtml, PdfSettings, ResolvedResource } from "./html-to-pdf-types";
 
 /**
  * Ensures the HTML is a complete document suitable for Chromium printing.
@@ -20,7 +20,6 @@ export function prepareHtmlDocument(
   const hasDoctype = /<!DOCTYPE\s+html/i.test(trimmed);
   const hasHtmlTag = /<html[\s>]/i.test(trimmed);
   const hasHead = /<head[\s>]/i.test(trimmed);
-  const hasBody = /<body[\s>]/i.test(trimmed);
 
   let html = trimmed;
 
@@ -43,24 +42,29 @@ ${trimmed}
     html = `<!DOCTYPE html>\n${html}`;
   }
 
-  // Inject print-oriented base styles if no existing head styles conflict heavily
+  // Inject print-oriented base styles
   if (hasHtmlTag && hasHead) {
     const printCss = buildPrintStyles(settings);
-    // Insert before </head>
     html = html.replace(
       /<\/head>/i,
       `<style data-pdfberri-print>${printCss}</style>\n</head>`
     );
   }
 
-  // Basic resource discovery (for later resolution)
-  const resources = discoverResources(html);
+  // Basic resource discovery
+  const discoveredUrls = discoverResources(html);
+
+  const resources: ResolvedResource[] = discoveredUrls.map((url) => ({
+    originalUrl: url,
+    type: "other",
+    status: "ok",
+  }));
 
   return {
     html,
     baseUrl,
     resources,
-    hasExternalResources: resources.some((r) => r.startsWith("http")),
+    hasExternalResources: discoveredUrls.some((r) => r.startsWith("http")),
   };
 }
 
@@ -72,7 +76,6 @@ function buildPrintStyles(settings: PdfSettings): string {
       ? `${settings.customMargins.top}mm ${settings.customMargins.right}mm ${settings.customMargins.bottom}mm ${settings.customMargins.left}mm`
       : undefined;
 
-  // Prefer @page for Chromium print
   let pageRule = `@page { size: ${pageSize} ${orientation};`;
   if (margins) {
     pageRule += ` margin: ${margins};`;
@@ -108,7 +111,6 @@ tfoot {
 h1, h2, h3, h4, h5, h6 {
   page-break-after: avoid;
 }
-/* Avoid awkward splits */
 p, li {
   orphans: 3;
   widows: 3;
@@ -130,7 +132,6 @@ function discoverResources(html: string): string[] {
     while ((match = re.exec(html)) !== null) {
       const value = match[1];
       if (value && !value.startsWith("data:") && !value.startsWith("blob:")) {
-        // srcset can contain multiple
         value.split(",").forEach((part) => {
           const u = part.trim().split(/\s+/)[0];
           if (u) urls.push(u);
@@ -142,19 +143,13 @@ function discoverResources(html: string): string[] {
 }
 
 /**
- * Lightweight sanitization focused on preventing obvious XSS vectors
- * that could escape the isolated browser context.
- * We intentionally keep most markup — Chromium isolation is the real security boundary.
+ * Lightweight sanitization focused on preventing obvious XSS vectors.
  */
 export function sanitizeHtmlForRendering(html: string): string {
-  // Remove <script> blocks (browser will also have JS disabled)
   let clean = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
-  // Remove event handlers
   clean = clean.replace(/\son\w+\s*=\s*(["']).*?\1/gi, "");
   clean = clean.replace(/\son\w+\s*=\s*[^\s>]+/gi, "");
-  // Remove javascript: URLs
   clean = clean.replace(/javascript\s*:/gi, "blocked:");
-  // Remove data:text/html (potential nested documents)
   clean = clean.replace(/data:text\/html[^"'\s>]*/gi, "blocked:");
   return clean;
 }
