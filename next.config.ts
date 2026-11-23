@@ -11,11 +11,18 @@ const nextConfig: NextConfig = {
     },
   },
 
-  // Important for Playwright + Chromium on Vercel
+  // Critical for Playwright + Chromium on Vercel
   serverExternalPackages: [
     "playwright-core",
     "@sparticuz/chromium",
   ],
+
+  // Make sure the Chromium binary files are included in the serverless function
+  outputFileTracingIncludes: {
+    "/api/tools/html-to-pdf/convert": [
+      "./node_modules/@sparticuz/chromium/**/*",
+    ],
+  },
 
   images: {
     formats: ["image/webp"],

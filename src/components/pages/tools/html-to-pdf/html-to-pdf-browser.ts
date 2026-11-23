@@ -1,6 +1,6 @@
 /**
  * PDFBerri HTML → PDF — Isolated Chromium Browser Manager
- * Uses Playwright + @sparticuz/chromium for Vercel compatibility.
+ * Playwright + @sparticuz/chromium (Vercel compatible)
  */
 
 import type { Browser, BrowserContext, Page } from "playwright-core";
@@ -10,10 +10,6 @@ import { LIMITS } from "./html-to-pdf-types";
 let sharedBrowser: Browser | null = null;
 let launching: Promise<Browser> | null = null;
 
-/**
- * Lazily launch a shared Chromium instance.
- * Automatically uses @sparticuz/chromium on Vercel.
- */
 export async function getBrowser(): Promise<Browser> {
   if (sharedBrowser && sharedBrowser.isConnected()) {
     return sharedBrowser;
@@ -24,41 +20,32 @@ export async function getBrowser(): Promise<Browser> {
   }
 
   launching = (async () => {
-    const { chromium } = await import("playwright-core");
+    // Rename to avoid conflict with @sparticuz/chromium
+    const { chromium: playwright } = await import("playwright-core");
 
-    const isServerless =
-      !!process.env.VERCEL ||
-      !!process.env.AWS_LAMBDA_FUNCTION_VERSION ||
-      process.env.NODE_ENV === "production";
+    const isVercel =
+      !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_VERSION;
 
-    let launchOptions: any = {
-      headless: true,
-      args: [...HTML_TO_PDF_CONFIG.browser.args],
-      timeout: 30_000,
-    };
+    let browser: Browser;
 
-    if (isServerless) {
-      // Production / Vercel — use @sparticuz/chromium
-      const chromiumPkg = await import("@sparticuz/chromium");
-      const chromium = chromiumPkg.default || chromiumPkg;
+    if (isVercel) {
+      const chromium = (await import("@sparticuz/chromium")).default;
 
-      launchOptions = {
-        ...launchOptions,
-        args: [
-          ...(chromium.args || []),
-          ...HTML_TO_PDF_CONFIG.browser.args,
-          "--disable-web-security",
-          "--font-render-hinting=none",
-        ],
+      // Official recommended pattern for Playwright + Sparticuz
+      browser = await playwright.launch({
+        args: chromium.args,
         executablePath: await chromium.executablePath(),
-        headless: true, // force true (don't rely on chromium.headless)
-      };
-    } else if (HTML_TO_PDF_CONFIG.browser.executablePath) {
-      // Local development with custom path
-      launchOptions.executablePath = HTML_TO_PDF_CONFIG.browser.executablePath;
+        // Do NOT pass headless: true here — chromium.args already contains the correct flags
+      });
+    } else {
+      // Local development
+      browser = await playwright.launch({
+        headless: true,
+        args: [...HTML_TO_PDF_CONFIG.browser.args],
+        executablePath: HTML_TO_PDF_CONFIG.browser.executablePath,
+        timeout: 30_000,
+      });
     }
-
-    const browser = await chromium.launch(launchOptions);
 
     sharedBrowser = browser;
     launching = null;
@@ -85,7 +72,6 @@ export async function createIsolatedContext(
     permissions: [],
   });
 
-  // Block dangerous requests
   await context.route("**/*", async (route) => {
     const request = route.request();
     const url = request.url();
@@ -134,23 +120,17 @@ export async function createPage(context: BrowserContext): Promise<Page> {
 export async function closePageAndContext(page?: Page, context?: BrowserContext) {
   try {
     if (page && !page.isClosed()) await page.close();
-  } catch {
-    // ignore
-  }
+  } catch {}
   try {
     if (context) await context.close();
-  } catch {
-    // ignore
-  }
+  } catch {}
 }
 
 export async function shutdownBrowser() {
   if (sharedBrowser) {
     try {
       await sharedBrowser.close();
-    } catch {
-      // ignore
-    }
+    } catch {}
     sharedBrowser = null;
   }
 }

@@ -2,7 +2,7 @@
   "functions": {
     "src/app/api/tools/html-to-pdf/convert/route.ts": {
       "maxDuration": 60,
-      "memory": 1024
+      "memory": 1536
     }
   }
 }
