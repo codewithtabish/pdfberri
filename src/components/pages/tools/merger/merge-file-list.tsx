@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { MergeFileCard } from "./merge-file-card";
-import { MergeFileItem } from "@/data/merge-types";
+import { MergeFileItem } from "./merge-types";
 
 interface MergeFileListProps {
   files: MergeFileItem[];

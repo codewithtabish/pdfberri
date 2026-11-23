@@ -1,5 +1,5 @@
-import { MergeIssue } from "@/data/merge-types";
 import { AlertCircle, RotateCcw, X } from "lucide-react";
+import { MergeIssue } from "./merge-types";
 
 interface MergeErrorProps {
   message: string;
