@@ -1,13 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useRotateWorkspace } from "./use-rotate-workspace";
 import { RotatePageGrid } from "./rotate-page-grid";
-import { formatBytes } from "./rotate-utils";
 import {
   AlertCircleIcon, CheckCircleIcon, DownloadIcon, LoaderIcon,
   PdfFileIcon, RefreshIcon, RotateCcwIcon, RotateCwIcon, TrashIcon, UploadIcon, XIcon
 } from "@/components/general/icons/pdf-icons";
+import { formatBytes } from "./rotate-utils";
+import { useRotateWorkspace } from "./use-rotate-workspace";
 
 export function RotateWorkspace() {
   const w = useRotateWorkspace();
@@ -50,11 +50,7 @@ export function RotateWorkspace() {
               e.target.value = "";
             }}
           />
-<<<<<<< HEAD
           <p className="text-xs text-muted-foreground">Accepted format:- PDF</p>
-=======
-          <p className="text-xs text-muted-foreground">Accepted format: PDF</p>
->>>>>>> feature/protect-pdf
         </div>
       )}
 
