@@ -230,6 +230,151 @@ export function RedactIcon({ className }: IconProps) {
   );
 }
 
+
+/**
+ * PDFBerri — Tool Icons
+ * Place this file at: src/components/general/icons/pdf-icons.tsx
+ * (or adjust the import path to match your project)
+ *
+ * All icons are simple, consistent SVG components.
+ * Colors inherit currentColor so they work with your theme.
+ */
+
+
+
+function base(props: IconProps) {
+  return {
+    fill: "none",
+    viewBox: "0 0 24 24",
+    stroke: "currentColor",
+    strokeWidth: 1.75,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    ...props,
+  };
+}
+
+export function HtmlToPdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <path d="M10 13l-2 2 2 2" />
+      <path d="M14 13l2 2-2 2" />
+    </svg>
+  );
+}
+
+export function PdfToWordIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <path d="M9 15l1.5-4L12 15l1.5-4L15 15" />
+    </svg>
+  );
+}
+
+export function WordToPdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <path d="M9 13h6M9 17h4" />
+    </svg>
+  );
+}
+
+export function PdfToExcelIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <path d="M9 13h6M9 17h6M12 13v4" />
+    </svg>
+  );
+}
+
+export function ExcelToPdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <rect x="8" y="12" width="8" height="6" rx="1" />
+    </svg>
+  );
+}
+
+export function JpgToPdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <path d="M21 15l-5-5L5 21" />
+    </svg>
+  );
+}
+
+export function PdfToJpgIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <circle cx="10" cy="14" r="1.5" />
+      <path d="M16 18l-2.5-3-2 2.5" />
+    </svg>
+  );
+}
+
+export function MergePdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M8 6h8M8 12h8M8 18h5" />
+      <path d="M16 15l3 3-3 3" />
+    </svg>
+  );
+}
+
+export function SplitPdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M8 6h8M8 12h5M8 18h8" />
+      <path d="M16 9l3 3-3 3" />
+    </svg>
+  );
+}
+
+export function CompressPdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <path d="M12 11v6M9 14l3 3 3-3" />
+    </svg>
+  );
+}
+
+export function ProtectPdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}
+
+export function RotatePdfIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M23 4v6h-6" />
+      <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10" />
+    </svg>
+  );
+}
+
+
+
+
 // ============================================================
 // ORGANIZE / OCR
 // ============================================================
