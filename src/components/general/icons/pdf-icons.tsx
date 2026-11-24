@@ -1116,7 +1116,43 @@ export function TextFileIcon({ className }: IconProps) {
 // ============================================================
 
 
+// ============================================================
+// Sign PDF — additional icons
+// ============================================================
 
+export function PenToolIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m12 19 7-7 3 3-7 7-3-3z" />
+      <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+      <path d="m2 2 7.586 7.586" />
+      <circle cx="11" cy="11" r="2" />
+    </Svg>
+  );
+}
+
+export function CalendarIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+      <line x1="16" y1="2" x2="16" y2="6" />
+      <line x1="8" y1="2" x2="8" y2="6" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+    </Svg>
+  );
+}
+
+export function ImagePlusIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" />
+      <line x1="16" y1="5" x2="22" y2="5" />
+      <line x1="19" y1="2" x2="19" y2="8" />
+      <circle cx="9" cy="9" r="2" />
+      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+    </Svg>
+  );
+}
 
 
 // BATCH EXPORT (for programmatic use, keyed by tool slug)
