@@ -1,3 +1,4 @@
+// src/components/pages/tools/add-page-numbers/add-page-numbers-generator.ts
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import type { NumberingConfig } from './add-page-numbers-types';
 import { formatPageNumber } from './add-page-numbers-format';
@@ -25,7 +26,7 @@ export async function generateNumberedPdf(
     'blue': rgb(0.1, 0.3, 0.8),
   };
   const color = colorMap[config.color];
-  const margin = 30; 
+  const margin = 30;
 
   let currentNumber = config.startNumber;
 
@@ -33,12 +34,22 @@ export async function generateNumberedPdf(
     const page = pages[pageIndex];
     const { width, height } = page.getSize();
 
-    const text = formatPageNumber(config.format, currentNumber, totalNumbered);
+    const text = formatPageNumber(
+      config.format,
+      currentNumber,
+      totalNumbered,
+      config.startNumber,   // ← 4th argument now provided
+    );
     const textWidth = font.widthOfTextAtSize(text, size);
     const textHeight = font.heightAtSize(size);
 
     const { x, y } = calculatePosition(
-      config.position, width, height, textWidth, textHeight, margin
+      config.position,
+      width,
+      height,
+      textWidth,
+      textHeight,
+      margin,
     );
 
     page.drawText(text, { x, y, size, font, color });

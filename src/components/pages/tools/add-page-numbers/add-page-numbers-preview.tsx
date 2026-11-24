@@ -26,24 +26,33 @@ export function AddPageNumbersPreview({ bytes, pageNumber, config, totalSelected
         const viewport = page.getViewport({ scale: 1 });
         const scale = 400 / viewport.width; // Fit to ~400px preview
         const scaled = page.getViewport({ scale });
-        
+
         const canvas = canvasRef.current;
         if (!canvas || cancelled) return;
-        
+
         canvas.width = scaled.width;
         canvas.height = scaled.height;
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
         await page.render({ canvasContext: ctx, canvas, viewport: scaled }).promise;
-      } catch (err) { /* ignore preview errors */ }
+      } catch {
+        /* ignore preview errors */
+      }
     };
     render();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [bytes, pageNumber]);
 
-  const text = formatPageNumber(config.format, pageNumber, totalSelected);
-  
+  const text = formatPageNumber(
+    config.format,
+    pageNumber,
+    totalSelected,
+    config.startNumber, // ← 4th argument now provided
+  );
+
   return (
     <div className="relative border bg-white shadow-sm inline-block">
       <canvas ref={canvasRef} className="block max-w-full h-auto" />
@@ -53,11 +62,25 @@ export function AddPageNumbersPreview({ bytes, pageNumber, config, totalSelected
         style={{
           top: config.position.includes('top') ? '30px' : 'auto',
           bottom: config.position.includes('bottom') ? '30px' : 'auto',
-          left: config.position.includes('left') ? '30px' : config.position.includes('center') ? '50%' : 'auto',
+          left: config.position.includes('left')
+            ? '30px'
+            : config.position.includes('center')
+            ? '50%'
+            : 'auto',
           right: config.position.includes('right') ? '30px' : 'auto',
           transform: config.position.includes('center') ? 'translateX(-50%)' : 'none',
-          fontSize: config.fontSize === 'small' ? '10px' : config.fontSize === 'medium' ? '12px' : '16px',
-          color: config.color === 'black' ? '#000' : config.color === 'dark-grey' ? '#4b5563' : '#1d4ed8',
+          fontSize:
+            config.fontSize === 'small'
+              ? '10px'
+              : config.fontSize === 'medium'
+              ? '12px'
+              : '16px',
+          color:
+            config.color === 'black'
+              ? '#000'
+              : config.color === 'dark-grey'
+              ? '#4b5563'
+              : '#1d4ed8',
           fontWeight: config.isBold ? 'bold' : 'normal',
         }}
       >
