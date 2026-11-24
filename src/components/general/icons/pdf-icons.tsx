@@ -295,6 +295,202 @@ export function PdfToExcelIcon(props: IconProps) {
   );
 }
 
+// ============================================================
+// Annotate PDF — additional icons
+// ============================================================
+
+export function HighlighterIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m9 11-6 6v3h3l6-6" />
+      <path d="m14 6 4-4 4 4-4 4" />
+      <path d="m9 11 4 4 5-5-4-4" />
+    </Svg>
+  );
+}
+
+export function UnderlineIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M6 4v7a6 6 0 0 0 12 0V4" />
+      <path d="M4 20h16" />
+    </Svg>
+  );
+}
+
+export function StrikethroughIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 12h16" />
+      <path d="M16 6a4 4 0 0 0-8 0c0 2 2 3 4 3s4 1 4 3a4 4 0 0 1-8 0" />
+    </Svg>
+  );
+}
+
+export function PenIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m3 21 3-9 9-9 6 6-9 9-9 3Z" />
+      <path d="m14 6 4 4" />
+    </Svg>
+  );
+}
+
+export function EraserIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m4 16 8-8 6 6-4 4H8l-4-4Z" />
+      <path d="M20 20H10" />
+    </Svg>
+  );
+}
+
+export function TextIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M5 5h14" />
+      <path d="M12 5v15" />
+      <path d="M9 20h6" />
+    </Svg>
+  );
+}
+
+export function CommentIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z" />
+    </Svg>
+  );
+}
+
+export function RectangleIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="4" y="6" width="16" height="12" rx="1.5" />
+    </Svg>
+  );
+}
+
+export function CircleShapeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="12" cy="12" r="8" />
+    </Svg>
+  );
+}
+
+export function ArrowShapeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M5 19 19 5" />
+      <path d="M13 5h6v6" />
+    </Svg>
+  );
+}
+
+export function LineShapeIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M5 19 19 5" />
+    </Svg>
+  );
+}
+
+export function UndoIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M9 14 4 9l5-5" />
+      <path d="M4 9h11a5 5 0 0 1 0 10h-3" />
+    </Svg>
+  );
+}
+
+export function RedoIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m15 14 5-5-5-5" />
+      <path d="M20 9H9a5 5 0 0 0 0 10h3" />
+    </Svg>
+  );
+}
+
+export function ZoomInIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m20 20-4.5-4.5" />
+      <path d="M10.5 8v5M8 10.5h5" />
+    </Svg>
+  );
+}
+
+export function ZoomOutIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m20 20-4.5-4.5" />
+      <path d="M8 10.5h5" />
+    </Svg>
+  );
+}
+
+export function FitWidthIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M3 12h18" />
+      <path d="m7 8-4 4 4 4" />
+      <path d="m17 8 4 4-4 4" />
+    </Svg>
+  );
+}
+
+export function FitPageIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M9 9h6v6H9z" />
+    </Svg>
+  );
+}
+
+export function CursorIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m4 3 16 8-7 2-2 7-7-17Z" />
+    </Svg>
+  );
+}
+
+export function HandIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V11" />
+      <path d="M10 11V4.5a1.5 1.5 0 0 1 3 0V11" />
+      <path d="M13 11V5.5a1.5 1.5 0 0 1 3 0V11" />
+      <path d="M16 11V7.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6v-3l-2.5-2.5a1.5 1.5 0 0 1 2-2L6 10" />
+    </Svg>
+  );
+}
+
+export function MoreHorizontalIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="5" cy="12" r="1" />
+      <circle cx="12" cy="12" r="1" />
+      <circle cx="19" cy="12" r="1" />
+    </Svg>
+  );
+}
+
+export function FileIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+      <path d="M14 3v5h5" />
+    </Svg>
+  );
+}
+
 export function ExcelToPdfIcon(props: IconProps) {
   return (
     <svg {...base(props)}>
@@ -960,3 +1156,4 @@ export const PDF_TOOL_ICONS = {
 } as const;
 
 export type PdfToolIconKey = keyof typeof PDF_TOOL_ICONS;
+
