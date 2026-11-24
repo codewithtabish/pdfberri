@@ -6,9 +6,49 @@
 import type { Browser, BrowserContext, Page } from "playwright-core";
 import { HTML_TO_PDF_CONFIG } from "./html-to-pdf-config";
 import { LIMITS } from "./html-to-pdf-types";
+import { createError } from "./html-to-pdf-validation";
 
 let sharedBrowser: Browser | null = null;
 let launching: Promise<Browser> | null = null;
+
+/** Flags from @sparticuz/chromium that break Playwright contexts. */
+function filterServerlessArgs(args: string[]): string[] {
+  return args.filter(
+    (a) => !a.startsWith("--single-process") && !a.startsWith("--headless")
+  );
+}
+
+async function launchBrowser(): Promise<Browser> {
+  const { chromium: playwright } = await import("playwright-core");
+
+  const isServerless =
+    !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_VERSION;
+
+  if (isServerless) {
+    const chromium = (await import("@sparticuz/chromium")).default;
+    const executablePath = await chromium.executablePath();
+
+    console.log("[html-to-pdf] launching serverless chromium", {
+      executablePath,
+      node: process.version,
+    });
+
+    return playwright.launch({
+      args: filterServerlessArgs(chromium.args),
+      executablePath,
+      headless: true,
+      timeout: 30_000,
+    });
+  }
+
+  // Local development
+  return playwright.launch({
+    headless: true,
+    args: [...HTML_TO_PDF_CONFIG.browser.args],
+    executablePath: HTML_TO_PDF_CONFIG.browser.executablePath,
+    timeout: 30_000,
+  });
+}
 
 export async function getBrowser(): Promise<Browser> {
   if (sharedBrowser && sharedBrowser.isConnected()) {
@@ -19,43 +59,24 @@ export async function getBrowser(): Promise<Browser> {
     return launching;
   }
 
-  launching = (async () => {
-    // Rename to avoid conflict with @sparticuz/chromium
-    const { chromium: playwright } = await import("playwright-core");
-
-    const isVercel =
-      !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_VERSION;
-
-    let browser: Browser;
-
-    if (isVercel) {
-      const chromium = (await import("@sparticuz/chromium")).default;
-
-      // Official recommended pattern for Playwright + Sparticuz
-      browser = await playwright.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath(),
-        // Do NOT pass headless: true here — chromium.args already contains the correct flags
+  // IMPORTANT: always clear `launching`, even when the launch fails,
+  // otherwise every retry reuses the same rejected promise.
+  launching = launchBrowser()
+    .then((browser) => {
+      sharedBrowser = browser;
+      browser.on("disconnected", () => {
+        sharedBrowser = null;
       });
-    } else {
-      // Local development
-      browser = await playwright.launch({
-        headless: true,
-        args: [...HTML_TO_PDF_CONFIG.browser.args],
-        executablePath: HTML_TO_PDF_CONFIG.browser.executablePath,
-        timeout: 30_000,
-      });
-    }
-
-    sharedBrowser = browser;
-    launching = null;
-
-    browser.on("disconnected", () => {
-      sharedBrowser = null;
+      return browser;
+    })
+    .catch((err: unknown) => {
+      // This is the line that shows the REAL reason in Vercel logs
+      console.error("[html-to-pdf] BROWSER LAUNCH FAILED:", err);
+      throw createError("BROWSER_INIT_FAILED");
+    })
+    .finally(() => {
+      launching = null;
     });
-
-    return browser;
-  })();
 
   return launching;
 }
@@ -95,10 +116,6 @@ export async function createIsolatedContext(
         host === "169.254.169.254"
       ) {
         return route.abort("blockedbyclient");
-      }
-
-      if (parsed.protocol === "data:" || parsed.protocol === "blob:") {
-        return route.continue();
       }
 
       return route.continue();
