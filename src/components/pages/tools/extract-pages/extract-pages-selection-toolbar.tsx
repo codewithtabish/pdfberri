@@ -1,0 +1,1 @@
+export { ExtractPagesToolbar as ExtractPagesSelectionToolbar } from './extract-pages-toolbar';
