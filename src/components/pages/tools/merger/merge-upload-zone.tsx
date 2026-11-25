@@ -78,7 +78,7 @@ export function MergeUploadZone({
       <div
         {...dropProps}
         className={cn(
-          "flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed px-4 py-3 text-sm transition-colors sm:flex-row sm:gap-4",
+          "flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed px-4 py-3 text-sm transition-colors sm:flex-row sm:gap-4",
           isDragOver
             ? "border-primary bg-primary/10"
             : "border-primary/40 bg-primary/5",
