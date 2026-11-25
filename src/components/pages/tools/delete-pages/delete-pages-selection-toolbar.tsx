@@ -1,0 +1,1 @@
+export { DeletePagesToolbar as DeletePagesSelectionToolbar } from './delete-pages-toolbar';

@@ -1,0 +1,1 @@
+export { generateDeletedPdf } from './delete-pages-engine';
