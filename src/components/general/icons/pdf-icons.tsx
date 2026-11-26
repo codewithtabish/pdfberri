@@ -29,6 +29,15 @@ function Svg({ className, children }: IconProps & { children: ReactNode }) {
   );
 }
 
+
+export function ChevronLeftIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m15 6-6 6 6 6" />
+    </Svg>
+  );
+}
+
 // Shared document outline with folded corner
 function Doc() {
   return (

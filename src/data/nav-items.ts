@@ -45,8 +45,6 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: "JPG to PDF", href: "/tools/jpg-to-pdf" },
       { label: "PDF to Excel", href: "/tools/pdf-to-excel" },
       { label: "Excel to PDF", href: "/tools/excel-to-pdf" },
-      { label: "PDF to PowerPoint", href: "/tools/pdf-to-powerpoint" },
-      { label: "PowerPoint to PDF", href: "/tools/powerpoint-to-pdf" },
       { label: "HTML to PDF", href: "/tools/html-to-pdf" },
     ],
   },
@@ -75,7 +73,6 @@ export const NAV_GROUPS: NavGroup[] = [
     href: "/tools",
     links: [
       { label: "Unlock PDF", href: "/tools/unlock-pdf" },
-      { label: "Redact PDF", href: "/tools/redact-pdf" },
       { label: "OCR PDF", href: "/tools/ocr-pdf" },
       { label: "Extract Text", href: "/tools/extract-text" },
       { label: "Extract Images", href: "/tools/extract-images" },
