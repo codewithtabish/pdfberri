@@ -1,0 +1,1 @@
+export { ExtractImages } from "./extract-images";
