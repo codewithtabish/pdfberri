@@ -1,0 +1,1 @@
+export { OcrPdf } from "./ocr-pdf";
