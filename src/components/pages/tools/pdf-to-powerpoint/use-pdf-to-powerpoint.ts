@@ -14,6 +14,9 @@ import type {
 } from "./pdf-to-powerpoint-types";
 import { assertValidPdfFile, parsePageRanges } from "./pdf-to-powerpoint-validation";
 
+// Helper type to bypass the missing 'destroy' type in pdfjs-dist
+type DestroyablePDFDocumentProxy = PDFDocumentProxy & { destroy: () => Promise<void> };
+
 export function usePdfToPowerpoint() {
   const [status, setStatus] = useState<WorkspaceStatus>("idle");
   const [file, setFile] = useState<File | null>(null);
@@ -47,7 +50,7 @@ export function usePdfToPowerpoint() {
   const destroyDoc = useCallback(() => {
     const current = docRef.current;
     docRef.current = null;
-    if (current) void current.destroy().catch(() => undefined);
+    if (current) void (current as DestroyablePDFDocumentProxy).destroy().catch(() => undefined);
   }, []);
 
   useEffect(
@@ -55,7 +58,7 @@ export function usePdfToPowerpoint() {
       abortRef.current?.abort();
       if (urlRef.current) URL.revokeObjectURL(urlRef.current);
       const current = docRef.current;
-      if (current) void current.destroy().catch(() => undefined);
+      if (current) void (current as DestroyablePDFDocumentProxy).destroy().catch(() => undefined);
     },
     [],
   );
@@ -71,11 +74,11 @@ export function usePdfToPowerpoint() {
         await assertValidPdfFile(next);
         const opened = await openPdf(next);
         if (opened.numPages < 1) {
-          void opened.destroy();
+          void (opened as DestroyablePDFDocumentProxy).destroy();
           throw new ConverterError("EMPTY");
         }
         if (opened.numPages > MAX_PAGES) {
-          void opened.destroy();
+          void (opened as DestroyablePDFDocumentProxy).destroy();
           throw new ConverterError("TOO_MANY_PAGES");
         }
         destroyDoc();

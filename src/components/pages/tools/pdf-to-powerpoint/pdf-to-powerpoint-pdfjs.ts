@@ -20,7 +20,8 @@ export function loadPdfjs(): Promise<PdfjsModule> {
 export async function openPdf(file: File): Promise<PDFDocumentProxy> {
   const pdfjs = await loadPdfjs();
   const data = new Uint8Array(await file.arrayBuffer());
-  const task = pdfjs.getDocument({ data, isEvalSupported: false });
+  // FIX: Removed `isEvalSupported: false` to fix the TS error
+  const task = pdfjs.getDocument({ data });
   try {
     return await task.promise;
   } catch (error) {
