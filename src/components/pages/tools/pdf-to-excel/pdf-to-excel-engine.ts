@@ -1,50 +1,71 @@
 // src/components/pages/tools/pdf-to-excel/pdf-to-excel-engine.ts
+import type { Worker } from 'tesseract.js';
 import { loadPdfDocument } from './pdf-to-excel-pdfjs';
-import { extractTextWithCoordinates } from './pdf-to-excel-text-extractor';
-import { extractTextViaOcr } from './pdf-to-excel-ocr';
+import { extractTextWithCoordinates, assessText } from './pdf-to-excel-text-extractor';
+import { createOcrWorker, extractTextViaOcr } from './pdf-to-excel-ocr';
 import { detectTablesFromCells } from './pdf-to-excel-table-detector';
+import { MAX_FILE_SIZE_MB, MAX_PAGES } from './pdf-to-excel-config';
 import { ExtractedTable, ProcessingStage } from './pdf-to-excel-types';
 
 export async function processPdfToExcel(
   file: File,
   onProgress: (stage: ProcessingStage, progress: number) => void
 ): Promise<{ tables: ExtractedTable[]; totalPages: number; isScanned: boolean }> {
-  
-  onProgress('loading', 10);
+  if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+    throw new Error(`This PDF is larger than ${MAX_FILE_SIZE_MB} MB.`);
+  }
+
+  onProgress('loading', 5);
   const pdf = await loadPdfDocument(file);
   const totalPages = pdf.numPages;
+  const pagesToProcess = Math.min(totalPages, MAX_PAGES);
 
   const allTables: ExtractedTable[] = [];
   let isScanned = false;
+  let worker: Worker | null = null;
 
-  // Process only the first 3 pages for OCR demo purposes to save time
-  const pagesToProcess = Math.min(totalPages, 3); 
+  try {
+    for (let i = 1; i <= pagesToProcess; i++) {
+      const base = 10 + ((i - 1) / pagesToProcess) * 85;
+      const step = 85 / pagesToProcess;
 
-  for (let i = 1; i <= pagesToProcess; i++) {
-    onProgress('extracting', 10 + Math.floor((i / pagesToProcess) * 40));
-    const page = await pdf.getPage(i);
-    
-    // Try text extraction first
-    const cells = await extractTextWithCoordinates(page);
-    
-    // Check for broken text (gibberish usually has low ratio of standard chars)
-    const combinedText = cells.map(c => c.text).join('');
-    const isBroken = combinedText.includes('ẓ') || combinedText.includes('ṫ') || cells.length < 5;
+      onProgress('extracting', Math.round(base));
+      const page = await pdf.getPage(i);
 
-    onProgress('detecting', 50 + Math.floor((i / pagesToProcess) * 40));
+      try {
+        const cells = await extractTextWithCoordinates(page);
+        const quality = assessText(cells.map((c) => c.text).join(' '));
 
-    if (isBroken) {
-      isScanned = true;
-      // Fallback to OCR
-      const ocrCells = await extractTextViaOcr(page);
-      const pageTables = detectTablesFromCells(ocrCells, i);
-      allTables.push(...pageTables);
-    } else {
-      const pageTables = detectTablesFromCells(cells, i);
-      allTables.push(...pageTables);
+        let pageTables: ExtractedTable[];
+
+        if (quality.ok) {
+          onProgress('detecting', Math.round(base + step * 0.7));
+          pageTables = detectTablesFromCells(cells, i, 'text-layer');
+        } else {
+          // Text layer is missing or unreadable (scanned page or broken font encoding)
+          isScanned = true;
+          if (!worker) worker = await createOcrWorker();
+
+          const ocrCells = await extractTextViaOcr(page, worker);
+          onProgress('detecting', Math.round(base + step * 0.9));
+          pageTables = detectTablesFromCells(ocrCells, i, 'ocr');
+
+          const ocrQuality = assessText(ocrCells.map((c) => c.text).join(' '));
+          if (!ocrQuality.ok) {
+            for (const t of pageTables) {
+              t.confidence = 'low';
+              t.warnings.push('OCR result looks unreliable. Please check this page carefully.');
+            }
+          }
+        }
+
+        allTables.push(...pageTables);
+      } finally {
+        page.cleanup();
+      }
     }
-    
-    page.cleanup();
+  } finally {
+    if (worker) await worker.terminate();
   }
 
   onProgress('review', 100);
