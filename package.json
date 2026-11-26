@@ -23,6 +23,7 @@
     "html2canvas-pro": "^2.5.0",
     "jszip": "^3.10.2",
     "lucide-react": "^1.77.0",
+    "mupdf": "^1.28.6",
     "next": "16.4.6",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^6.5.438",
