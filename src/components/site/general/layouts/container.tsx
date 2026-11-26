@@ -52,14 +52,11 @@ export function Container({ children, className, ...props }: ContainerProps) {
         "transition-colors duration-500 ease-out",
 
         // ============================================================
-        // RESPONSIVE HORIZONTAL PADDING
+        // RESPONSIVE HORIZONTAL PADDING (reduced)
         // ============================================================
-        "px-5", //        mobile → 20px
-        "sm:px-8", //     sm     → 32px
-        "md:px-10", //    md     → 40px
-        "lg:px-14", //    lg     → 56px
-        "xl:px-20", //    xl     → 80px
-        "2xl:px-28", //   2xl    → 112px
+        "px-4", //     mobile → 16px
+        "sm:px-6", //  sm     → 24px
+        "lg:px-8", //  lg     → 32px
 
         className,
       )}
@@ -70,7 +67,7 @@ export function Container({ children, className, ...props }: ContainerProps) {
           ============================================================ */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
         {/* Top wash */}
         <div

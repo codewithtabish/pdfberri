@@ -208,3 +208,30 @@
     scrollbar-gutter: stable;
   }
 }
+
+
+
+.hero-bg {
+  background:
+    radial-gradient(60% 50% at 0% 0%, color-mix(in oklab, var(--primary) var(--glow-a), transparent), transparent 70%),
+    radial-gradient(50% 45% at 100% 0%, color-mix(in oklab, #a5b4fc var(--glow-b), transparent), transparent 70%),
+    radial-gradient(45% 55% at 50% 45%, color-mix(in oklab, var(--primary) 25%, transparent), transparent 70%),
+    radial-gradient(80% 40% at 50% 100%, color-mix(in oklab, var(--primary) var(--glow-c), transparent), transparent 80%),
+    var(--background);
+}
+
+
+
+ 
+:root {
+  --glow-a: 28%;
+  --glow-b: 22%;
+  --glow-c: 16%;
+}
+ 
+.dark {
+  --glow-a: 22%;
+  --glow-b: 16%;
+  --glow-c: 12%;
+}
+ 

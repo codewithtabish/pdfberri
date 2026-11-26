@@ -1,122 +1,115 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, LayoutGrid, Search, Sparkles } from "lucide-react";
 
-type PopularTool = {
-  label: string;
-  href: string;
-};
+import {
+  ArrowRightIcon,
+  BoltIcon,
+  ShieldCheckIcon,
+  SparkleIcon,
+  StarIcon,
+} from "@/components/general/icons/pdf-icons";
 
-const POPULAR_TOOLS: PopularTool[] = [
-  { label: "Merge PDF", href: "/tools/merge-pdf" },
-  { label: "Compress PDF", href: "/tools/compress-pdf" },
-  { label: "PDF to Word", href: "/tools/pdf-to-word" },
-  { label: "PDF to JPG", href: "/tools/pdf-to-jpg" },
-  { label: "Chat with PDF", href: "/ai-tools/chat-with-pdf" },
-];
-
-export default function HomeHero() {
+/**
+ * Home hero — PDFBerri (split layout)
+ * Left: badge, two-line heading with gradient underline, copy, CTAs, trust row.
+ * Right: floating glass UI artwork.
+ * Padding / max width come from the root Container, so none here.
+ */
+export function HeroSection() {
   return (
     <section
-      aria-labelledby="home-hero-heading"
-      className="grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-6 lg:py-16"
+      aria-labelledby="hero-heading"
+      className="relative isolate grid items-center gap-6 pb-8 pt-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-4 lg:pb-12 lg:pt-8"
     >
-      {/* Left: message, search, actions */}
-      <div className="flex flex-col items-start">
-        <p className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
-          Your complete PDF workspace
-        </p>
+      {/* soft background glows behind the artwork */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 top-0 -z-10 size-96 rounded-full bg-primary/15 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-10 right-1/4 -z-10 size-72 rounded-full bg-violet-500/15 blur-3xl"
+      />
 
+      {/* ---------------------------- left ---------------------------- */}
+      <div className="flex flex-col items-start">
+        {/* badge */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-background/80 px-4 py-2 text-sm font-semibold text-primary shadow-sm shadow-primary/10 backdrop-blur">
+          <SparkleIcon className="size-4" />
+          New: AI tools for your PDFs
+        </div>
+
+        {/* heading */}
         <h1
-          id="home-hero-heading"
-          className="mt-5 text-3xl font-extrabold leading-[1.15] tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]"
+          id="hero-heading"
+          className="mt-5 text-4xl font-extrabold italic leading-[1.08] tracking-tight text-foreground sm:text-5xl xl:text-[3.5rem]"
         >
-          Everything you need to work with PDFs.
+          <span className="block">Every PDF tool you need,</span>
+          <span className="block">supercharged with AI</span>
         </h1>
 
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-          Convert, edit, merge, compress, and organize your PDFs. Or let AI help
-          you understand, summarize, and explore your documents.
+        {/* gradient underline */}
+        <div aria-hidden="true" className="mt-4 w-full max-w-lg space-y-1.5">
+          <div className="h-1.5 w-4/5 rounded-full bg-linear-to-r from-primary via-violet-500 to-transparent" />
+          <div className="h-0.5 w-2/5 rounded-full bg-primary/30" />
+        </div>
+
+        <p className="mt-5 max-w-lg text-pretty text-base text-muted-foreground sm:text-lg">
+          Merge, split, compress, convert, edit and chat with your documents.
+          Fast, secure and beautifully simple.
         </p>
 
-        {/* Tool search: plain GET form, works without client JavaScript */}
-        <form
-          action="/tools"
-          method="get"
-          role="search"
-          className="mt-7 w-full max-w-xl"
-        >
-          <label htmlFor="home-hero-search" className="sr-only">
-            Search for a PDF tool
-          </label>
-          <div className="flex items-center gap-2 rounded-xl border border-border bg-card p-1.5 shadow-sm transition-shadow focus-within:border-primary focus-within:ring-2 focus-within:ring-ring/40">
-            <Search
-              aria-hidden="true"
-              className="ml-2.5 size-5 shrink-0 text-muted-foreground"
-            />
-            <input
-              id="home-hero-search"
-              name="q"
-              type="search"
-              autoComplete="off"
-              placeholder="Search for a PDF tool..."
-              className="h-10 min-w-0 flex-1 bg-transparent text-sm font-medium text-foreground placeholder:text-muted-foreground focus:outline-none"
-            />
-            <button
-              type="submit"
-              aria-label="Search PDF tools"
-              className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-[transform,opacity] hover:opacity-90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              <ArrowRight aria-hidden="true" className="size-5" />
-            </button>
-          </div>
-        </form>
-
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        {/* CTAs */}
+        <div className="mt-7 flex flex-wrap items-center gap-3">
           <Link
             href="/tools"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-sm transition-[transform,opacity] hover:opacity-90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-base font-bold text-primary-foreground shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/40 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            <LayoutGrid aria-hidden="true" className="size-4" />
-            Explore PDF Tools
-            <ArrowRight aria-hidden="true" className="size-4" />
+            Start for free
+            <ArrowRightIcon className="size-5 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
           <Link
-            href="/ai-tools/chat-with-pdf"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-primary/40 bg-card px-6 text-sm font-semibold text-primary transition-[transform,background-color] hover:bg-primary/10 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            href="/ai-tools"
+            className="inline-flex items-center rounded-full border-2 border-primary/70 bg-background/70 px-7 py-3 text-base font-bold text-primary backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-primary/10 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            <Sparkles aria-hidden="true" className="size-4" />
-            Try AI PDF Assistant
+            Explore AI Tools
           </Link>
         </div>
 
-        <nav aria-label="Popular PDF tools" className="mt-7">
-          <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            <li className="font-semibold text-foreground">Popular Tools:</li>
-            {POPULAR_TOOLS.map((tool) => (
-              <li key={tool.href}>
-                <Link
-                  href={tool.href}
-                  className="font-medium text-primary underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  {tool.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        {/* trust row */}
+        <ul className="mt-8 flex flex-wrap items-center gap-y-3 text-sm font-medium text-foreground/80 sm:divide-x sm:divide-border">
+          <li className="flex items-center gap-2 pr-5">
+            <ShieldCheckIcon className="size-5 text-primary" />
+            256-bit secure
+          </li>
+          <li className="flex items-center gap-2 pr-5 sm:px-5">
+            <BoltIcon className="size-5 text-primary" />
+            Lightning fast
+          </li>
+          <li className="flex items-center gap-2 sm:pl-5">
+            <span className="flex" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <StarIcon key={i} className="size-4 text-amber-400" />
+              ))}
+            </span>
+            <span>
+              <span className="font-bold text-foreground">4.9/5</span> from
+              12,000+ users
+            </span>
+          </li>
+        </ul>
       </div>
 
-      {/* Right: product visual */}
-      <div className="relative mx-auto w-full max-w-2xl lg:max-w-none">
+      {/* ---------------------------- right --------------------------- */}
+      <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
         <Image
-          src="/images/home/home-hero.webp"
-          alt="PDFBerri AI Assistant answering a question about a PDF report, surrounded by PDF, Word, Excel and image file icons"
-          width={1536}
-          height={1024}
+          src="/images/home/hero_transparent.png"
+          alt="Chat with PDF preview showing an AI answer, a compressed-file notification and PDF, Word and PowerPoint file icons"
+          width={1200}
+          height={1000}
           priority
-          sizes="(min-width: 1024px) 52vw, (min-width: 640px) 90vw, 100vw"
-          className="h-auto w-full select-none"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="h-auto w-full mix-blend-multiply dark:mix-blend-normal"
         />
       </div>
     </section>
