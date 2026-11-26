@@ -1,1 +1,0 @@
-export { PowerPointToPdf } from "./powerpoint-to-pdf";
